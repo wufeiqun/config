@@ -379,17 +379,27 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-"let g:go_bin_path = expand("~/service/.project")
 
-" YouCompleteMe settings
-"let g:ycm_key_list_select_completion = ['<Down>']
-"let g:ycm_key_list_previous_completion = ['<Up>']
-"let g:ycm_complete_in_comments = 1
-"let g:ycm_complete_in_strings = 1
-"let g:ycm_seed_identifiers_with_syntax=1
-"let g:ycm_collect_identifiers_from_comments_and_strings = 1
-"let g:ycm_collect_identifiers_from_tags_files = 1
-"let g:ycm_goto_buffer_command = 'horizontal-split'
+"F2生效
+n! TitleInsert()
+call setline(1,"#coding:utf-8")
+call append(1,'""""')
+call append(2,"Program: ")
+call append(3,"Description: ")
+call append(4,"Author: Flyaway - flyaway1217@gmail.com")
+call append(5,"Date: " . strftime("%Y-%m-%d %H:%M:%S"))
+call append(6,"Last modified: " . strftime("%Y-%m-%d %H:%M:%S"))
+call append(7,"Python release: 3.3.2")
+call append(8,'"""')
+endfunction
 
-"noremap <leader>jd :YcmCompleter GoToDefinition<CR>
-"noremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+function! DateInsert()
+call cursor(7,1)
+if search('Last modified') != 0
+    let line = line('.')
+    call setline(line,"Last modified: " . strftime("%Y-%m-%d %H:%M:%S"))
+endif
+endfunction
+
+:map <F2> :call TitleInsert()<CR>ggjjA
+:autocmd FileWritePre,BufWritePre *.py ks|call DateInsert()|'s
