@@ -1,13 +1,10 @@
-" Pathogen load
-call pathogen#infect()
-call pathogen#helptags()
-
+" 关闭对老版本vi的兼容,如果不去执行一些老的vi脚本的话,默认关闭
 set nocompatible
 
 " 语法高亮
 syntax on
 
-" 检测文件类型
+" 检测文件类型,很重要，所有的语法检测、高亮、缩进规则都依赖文件类型的识别
 filetype on
 " 针对不同文件类型采用不同的缩进方式
 filetype indent on
@@ -19,7 +16,7 @@ filetype plugin indent on
 " 文件修改后自动重载
 set autoread
 
-" 取消备份
+" 为当前编辑的文件建立备份,没必要.
 set nobackup
 " 关闭交换文件
 set noswapfile
@@ -55,7 +52,7 @@ set showcmd
 set showmode
 
 " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
-set scrolloff=7
+set scrolloff=5
 
 " 命令行（在状态行下）的高度，默认为1，这里是2
 set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
@@ -64,13 +61,16 @@ set laststatus=2
 
 "显示行号：
 set number
+"插入模式下用绝对行号, 普通模式下用相对
+autocmd InsertEnter * :set norelativenumber number
+autocmd InsertLeave * :set relativenumber
 " 取消换行。
 set nowrap
 
 " 括号配对情况,跳转并高亮一下匹配的括号
 set showmatch
-" How many tenths of a second to blink when matching brackets
-set matchtime=2
+" 
+set matchtime=1
 
 "设置文内智能搜索提示
 " 高亮search命中的文本。
@@ -380,26 +380,14 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 
-"F2生效
-n! TitleInsert()
-call setline(1,"#coding:utf-8")
-call append(1,'""""')
-call append(2,"Program: ")
-call append(3,"Description: ")
-call append(4,"Author: Flyaway - flyaway1217@gmail.com")
-call append(5,"Date: " . strftime("%Y-%m-%d %H:%M:%S"))
-call append(6,"Last modified: " . strftime("%Y-%m-%d %H:%M:%S"))
-call append(7,"Python release: 3.3.2")
-call append(8,'"""')
+function! TitleInsert()
+call setline(1,"#!/usr/bin/env python")
+call setline(2,"#coding:utf-8")
 endfunction
 
-function! DateInsert()
-call cursor(7,1)
-if search('Last modified') != 0
-    let line = line('.')
-    call setline(line,"Last modified: " . strftime("%Y-%m-%d %H:%M:%S"))
-endif
+function! MainInsert()
+call append(1,'if __name__ == "__main__":')
 endfunction
 
 :map <F2> :call TitleInsert()<CR>ggjjA
-:autocmd FileWritePre,BufWritePre *.py ks|call DateInsert()|'s
+:map <F3> :call MainInsert()<CR>ggjjA
