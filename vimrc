@@ -382,7 +382,7 @@ au Syntax * RainbowParenthesesLoadBraces
 
 function! TitleInsert()
 call setline(1,"#!/usr/bin/env python")
-call setline(2,"#coding:utf-8")
+call setline(2,"# coding:utf-8")
 endfunction
 
 function! MainInsert()
