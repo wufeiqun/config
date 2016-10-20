@@ -374,10 +374,6 @@ let g:rbpt_colorpairs = [
    \ ]
 let g:rbpt_max = 40
 let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
 
 
 function! TitleInsert()
