@@ -1,5 +1,20 @@
-" 关闭对老版本vi的兼容,如果不去执行一些老的vi脚本的话,默认关闭
-set nocompatible
+"Vundle配置部分
+set nocompatible  " 关闭对老版本vi的兼容,如果不去执行一些老的vi脚本的话,默认关闭 
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'davidhalter/jedi-vim'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+"Vundle配置结束
+
+let g:jedi#force_py_version=3
 
 " 语法高亮
 syntax on
@@ -377,8 +392,7 @@ let g:rbpt_loadcmd_toggle = 0
 
 
 function! TitleInsert()
-call setline(1,"#!/usr/bin/env python")
-call setline(2,"# coding:utf-8")
+call setline(1,"#!/usr/bin/env python3")
 endfunction
 
 function! MainInsert()
