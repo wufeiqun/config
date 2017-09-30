@@ -1,2 +1,2 @@
-#### 项目说明
-这个项目里存放着常用工具的配置文件。
+# configuration
+Common service configurations,like samba ssh etc.
