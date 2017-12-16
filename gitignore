@@ -1,5 +1,32 @@
+# python
 *.pyc
 *.log
-
 __pycache__/*
 log/*
+
+# Java
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.mvn/
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+logs/
+*/logs/
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
