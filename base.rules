@@ -1,0 +1,91 @@
+groups:
+    - name: base-monitor-rule
+      rules:
+      - alert: NodeCpuUsage
+        expr: (100 - (avg by (instance) (rate(node_cpu{job=~".*",mode="idle"}[2m])) * 100)) > 30
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: CPU usage is above 30% (current value is: {{ $value }}"
+      - alert: NodeMemUsage
+        expr: avg by  (instance) ((1- (node_memory_MemFree{} + node_memory_Buffers{} + node_memory_Cached{})/node_memory_MemTotal{}) * 100) > 50
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: MEM usage is above 50% (current value is: {{ $value }}"
+      - alert: NodeDiskUsage
+        expr: (avg by (instance) (1 - node_filesystem_free{fstype!='rootfs',mountpoint!~'/(run|var|sys|dev).*',mountpoint!=''} / node_filesystem_size{})) * 100 > 60
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: Disk usage is above 60% (current value is: {{ $value }}"
+      - alert: NodeFDUsage
+        expr: avg by (instance) (node_filefd_allocated{} / node_filefd_maximum{}) * 100 > 60
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: File Descriptor usage is above 60% (current value is: {{ $value }}"
+      - alert: NodeLoad1
+        expr: avg by (instance) (node_load1{}) > 8
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: Load1 is above 8 (current value is: {{ $value }}"
+      - alert: NodeAgentStatus
+        expr: avg by (instance) (up{}) == 0
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: Node Agent is down (current value is: {{ $value }}"
+      - alert: NodeProcsBlocked
+        expr: avg by (instance) (node_procs_blocked{}) > 0
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: Node Agent is down (current value is: {{ $value }}"
+      - alert: NodeTransmitRate
+        expr:  avg by (instance) (floor(irate(node_network_transmit_bytes{device="eth0"}[2m]) / 1024 / 1024)) > 10
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: Node Transmit Rate  is above 10MB/s (current value is: {{ $value }}"
+      - alert: NodeReceiveRate
+        expr:  avg by (instance) (floor(irate(node_network_receive_bytes{device="eth0"}[2m]) / 1024 / 1024)) > 10
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: Node Receive Rate  is above 10MB/s (current value is: {{ $value }}"
+      - alert: NodeDiskReadRate
+        expr: avg by (instance) (floor(irate(node_disk_bytes_read{}[2m]) / 1024 / 1024)) > 10
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: Node Disk Read Rate is above 10MB/s (current value is: {{ $value }}"
+      - alert: NodeDiskWriteRate
+        expr: avg by (instance) (floor(irate(node_disk_bytes_written{}[2m]) / 1024 / 1024)) > 10
+        for: 2m
+        labels:
+          service_name: mp-ms-vlog
+          level: warning
+        annotations:
+          description: "{{$labels.instance}}: Node Disk Write Rate is above 10MB/s (current value is: {{ $value }}"
