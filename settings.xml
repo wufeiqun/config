@@ -18,7 +18,7 @@
       <id>nexus</id>
       <mirrorOf>*</mirrorOf>
       <name>自建maven仓库</name>
-      <url>http://maven.office.bbobo.com:8000/repository/maven-public/</url>
+      <url>http://maven.abc.com/repository/maven-public/</url>
     </mirror>
   </mirrors>
 
