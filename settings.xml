@@ -1,0 +1,54 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<!-- 配置本地缓存的路径一般不用设置, 默认是${user.home}/.m2/repository, 比如我想挂载一个磁盘单独放置这些仓库文件, 可以设置 -->
+  <localRepository>/data/apache-maven-3.5.2/data</localRepository>
+
+<!-- 这里用于配置一些敏感信息, 比如密码等. 当mvn去连接mirror/repository下载依赖的时候会用到这些密码, 根据id来匹配对应的密码 -->
+  <servers>
+    <server>
+      <id>nexus</id>
+      <username>username</username>
+      <password>123456</password>
+    </server>
+  </servers>
+
+  <mirrors>
+    <mirror>
+      <id>nexus</id>
+      <mirrorOf>*</mirrorOf>
+      <name>自建maven仓库</name>
+      <url>http://maven.office.bbobo.com:8000/repository/maven-public/</url>
+    </mirror>
+  </mirrors>
+
+  <profiles>
+    <profile>
+      <id>nexus</id>
+      <!--Enable snapshots for the built in central repo to direct -->
+      <!--all requests to nexus via the mirror -->
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+      </repositories>
+
+     <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>nexus</activeProfile>
+  </activeProfiles>
+  
+</settings>
