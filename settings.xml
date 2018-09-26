@@ -14,10 +14,13 @@
   </servers>
 
   <mirrors>
+    <!-- mirror相对于maven相当于hosts相对于Linux服务器, 能够拦截maven的公有仓库的请求 -->
     <mirror>
       <id>nexus</id>
+      <!-- 这里的*代表拦截所有仓库的的请求, 仓库是有ID的, 比如中央仓库是central -->
       <mirrorOf>*</mirrorOf>
       <name>自建maven仓库</name>
+      <!-- URL一般是公司自己搭建的私有仓库 -->
       <url>http://maven.abc.com/repository/maven-public/</url>
     </mirror>
   </mirrors>
@@ -28,6 +31,7 @@
       <!--Enable snapshots for the built in central repo to direct -->
       <!--all requests to nexus via the mirror -->
       <repositories>
+        <!-- 下面的配置其实没有起作用, 所有对公有仓库的请求都会被mirror拦截 -->
         <repository>
           <id>central</id>
           <url>http://central</url>
@@ -37,6 +41,7 @@
       </repositories>
 
      <pluginRepositories>
+      <!-- maven其实有一套插件系统, 很多动作都是插件来完成的.下面是差价的仓库配置, 同上. -->
         <pluginRepository>
           <id>central</id>
           <url>http://central</url>
@@ -48,6 +53,7 @@
   </profiles>
 
   <activeProfiles>
+    <!-- 激活上面的配置 -->
     <activeProfile>nexus</activeProfile>
   </activeProfiles>
   
