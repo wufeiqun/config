@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--域名倒排, 用于描述该项目的坐标定位, Python中依赖只是写上了名字和版本,如果不同组织上传了相同的包名是不能解决的-->
+    <groupId>me.rockywu.test</groupId>
+    <!--打成包以后的名称, 同一个group下要唯一-->
+    <artifactId>test</artifactId>
+    <!--版本x.y.z-RELEASE或者x.y.x-SNAPSHOT不同的包上传到不同的仓库中, 一个表示稳定, 一个表示测试不稳定版本-->
+    <version>1.0.0-SNAPSHOT</version>
+    <!--打包的格式, 如果该pom是parent pom的话该值必须是pom-->
+    <packaging>jar</packaging>
+    <!--名称和描述-->
+    <name>mp-sre-wufeiqun</name>
+    <description>Demo project for Spring Boot</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.14.RELEASE</version>
+        <relativePath/> <!-- 优先搜索的路径, 搜不到会去公有仓库查找, 一般不用配置 -->
+    </parent>
+
+    <!--变量定义, 一般定义版本号, 下面会通过${name}引用-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <name>value</name>
+    </properties>
+    <!--<dependencyManagement> 子模块只集成版本, 不继承任何management的引用, 这样子模块就不用写版本号了-->
+    <dependencyManagement>
+        <!--这里定义的依赖不会下载, 只是用于管理子模块的版本-->
+        <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>1.4.5.RELEASE</version>
+        </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--子模块, 一般用于微服务拆分开发, 比如一个服务有API和sync, 可以使用子模块的方式-->
+    <!--子模块的顺序不重要, maven构建的时候只需要parent的pom即可, 依赖关系maven会自动处理-->
+    <modules>
+        <module>my-project</module>
+        <module>another-project</module>
+        <module>third-project/pom-example.xml</module>
+    </modules>
+
+
+
+
+
+</project>
