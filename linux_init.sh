@@ -52,7 +52,6 @@ sed -e 's|^mirrorlist=|#mirrorlist=|g' \
 
 dnf clean all
 dnf makecache
-dnf -y update
 
 
 ### === 安装常用软件 ===
