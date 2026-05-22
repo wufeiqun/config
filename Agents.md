@@ -1,44 +1,25 @@
-# 项目上下文与 AI 行为准则 (Global AI Rules)
+# Global AI Rules & Context
 
-这是为所有 AI 辅助工具（Claude Code, Copilot CLI, Antigravity CLI）准备的全局统一说明书。
+## 1. Tech Stack
+*   **Backend**: Python 3 / FastAPI / UV / PostgreSQL
+*   **Frontend**: Vue 3 / TypeScript / Vite / pnpm
 
----
+## 2. Design Principles
+遵循以下工程实践，拒绝过度设计：
+*   **SOLID**、**DRY**、**KISS**、**YAGNI**
+*   **Separation of Concerns** (关注点分离)
+*   **High Cohesion, Low Coupling** (高内聚，低耦合)
 
-## 技术栈 (Tech Stack)
-优先使用现代流行的Python/Vue技术栈, 包括但不限于:
-*   **后端技术栈** : Python3 / FastAPI / UV / PostgreSQL
-*   **Frontend**：Vue3 / Typescript / Vite / Pnpm
+## 3. Language & Localization
+*   **主体语言**: 默认使用简体中文（注释、README、设计文档）。
+*   **专业术语**: 技术术语、代码、配置项、协议名等保持英文原文，切勿翻译。
 
----
+## 4. Coding & Logging Rules
+*   **文档同步**: 修改代码时，必须同步更新相关文档和注释。
+*   **意图注释**: 复杂逻辑必须写明注释，解释“为什么这样做（Why）”，而非“做了什么（What）”。
+*   **日志规范**: 关键流程必须埋点日志，错误日志必须包含完整的 Context。
 
-## 设计原则
-优先遵循优秀工程实践：
-- SOLID
-- DRY
-- KISS
-- YAGNI
-- Separation of Concerns
-- High Cohesion, Low Coupling
-
-## 文档优先
-* 修改代码时同步更新文档和注释
-* 复杂逻辑必须注释“为什么这样做”
-
----
-
-## 语言偏好
-* 默认使用简体中文
-* 技术术语, 代码, 配置项, 协议名等保持英文
-* 注释、README、设计文档尽量使用中文
-
-## Git工作流
-
-* 完成一个独立功能后及时提交 Git
-* commit message 说明“做了什么”和“为什么做”
-* commit message 要使用emoji提高可读性
-
-## 日志
-
-* 关键流程有日志
-* 错误有完整上下文
-
+## 5. Git Workflow
+完成独立功能后及时提交，`commit message` 规范如下：
+*   **格式**: `[Emoji] [动词] 简短说明`
+*   **内容**: 必须说明“做了什么”和“为什么做”。
